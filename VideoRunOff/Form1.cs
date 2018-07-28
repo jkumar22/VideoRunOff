@@ -16,10 +16,6 @@ namespace VideoRunOff
         public Form1()
         {
             InitializeComponent();
-            //WMPlayer1.uiMode = "mini";
-            //WMPlayer2.uiMode = "mini";
-            //WMPlayer3.uiMode = "mini";
-            //WMPlayer4.uiMode = "mini";
             WMPlayer1.settings.mute = true;
             WMPlayer2.settings.mute = true;
             WMPlayer3.settings.mute = true;
