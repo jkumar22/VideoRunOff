@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoRunOff", "VideoRunOff\VideoRunOff.csproj", "{B59E1D29-3DF3-4F5D-9800-8FAE8D2D99FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B59E1D29-3DF3-4F5D-9800-8FAE8D2D99FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B59E1D29-3DF3-4F5D-9800-8FAE8D2D99FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B59E1D29-3DF3-4F5D-9800-8FAE8D2D99FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B59E1D29-3DF3-4F5D-9800-8FAE8D2D99FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C3D94698-6AAA-4FEE-B2E8-6D4AD73BAE5F}
+	EndGlobalSection
+EndGlobal
