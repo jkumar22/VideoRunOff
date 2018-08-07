@@ -170,6 +170,7 @@
             this.Controls.Add(this.WMPlayer1);
             this.Name = "Form1";
             this.Text = "CITI Video Validation";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer3)).EndInit();
