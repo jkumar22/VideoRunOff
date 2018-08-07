@@ -40,16 +40,32 @@
             this.BtnPause = new System.Windows.Forms.Button();
             this.txtCurrentTimeStemp = new System.Windows.Forms.TextBox();
             this.BtnSetVideoTime = new System.Windows.Forms.Button();
+            this.CBVideoSpeed = new System.Windows.Forms.ComboBox();
+            this.BtnSetVideoSpeed = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ListViewLogFile = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer4)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // WMPlayer1
             // 
             this.WMPlayer1.Enabled = true;
-            this.WMPlayer1.Location = new System.Drawing.Point(12, 12);
+            this.WMPlayer1.Location = new System.Drawing.Point(15, 19);
             this.WMPlayer1.Name = "WMPlayer1";
             this.WMPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("WMPlayer1.OcxState")));
             this.WMPlayer1.Size = new System.Drawing.Size(271, 181);
@@ -59,7 +75,7 @@
             // 
             this.BtnSelect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSelect.Location = new System.Drawing.Point(12, 386);
+            this.BtnSelect.Location = new System.Drawing.Point(6, 19);
             this.BtnSelect.Name = "BtnSelect";
             this.BtnSelect.Size = new System.Drawing.Size(75, 23);
             this.BtnSelect.TabIndex = 1;
@@ -71,7 +87,7 @@
             // 
             this.BtnPlayPause.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnPlayPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnPlayPause.Location = new System.Drawing.Point(12, 415);
+            this.BtnPlayPause.Location = new System.Drawing.Point(6, 48);
             this.BtnPlayPause.Name = "BtnPlayPause";
             this.BtnPlayPause.Size = new System.Drawing.Size(75, 23);
             this.BtnPlayPause.TabIndex = 3;
@@ -82,16 +98,19 @@
             // LblVideo1File
             // 
             this.LblVideo1File.AutoSize = true;
-            this.LblVideo1File.Location = new System.Drawing.Point(93, 391);
+            this.LblVideo1File.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LblVideo1File.Location = new System.Drawing.Point(87, 24);
             this.LblVideo1File.Name = "LblVideo1File";
+            this.LblVideo1File.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.LblVideo1File.Size = new System.Drawing.Size(126, 13);
             this.LblVideo1File.TabIndex = 4;
             this.LblVideo1File.Text = "Select a Video file to play";
+            this.LblVideo1File.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // currentStateLabel
             // 
             this.currentStateLabel.AutoSize = true;
-            this.currentStateLabel.Location = new System.Drawing.Point(178, 251);
+            this.currentStateLabel.Location = new System.Drawing.Point(177, 268);
             this.currentStateLabel.Name = "currentStateLabel";
             this.currentStateLabel.Size = new System.Drawing.Size(0, 13);
             this.currentStateLabel.TabIndex = 5;
@@ -99,7 +118,7 @@
             // WMPlayer2
             // 
             this.WMPlayer2.Enabled = true;
-            this.WMPlayer2.Location = new System.Drawing.Point(289, 12);
+            this.WMPlayer2.Location = new System.Drawing.Point(292, 19);
             this.WMPlayer2.Name = "WMPlayer2";
             this.WMPlayer2.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("WMPlayer2.OcxState")));
             this.WMPlayer2.Size = new System.Drawing.Size(271, 181);
@@ -108,7 +127,7 @@
             // WMPlayer3
             // 
             this.WMPlayer3.Enabled = true;
-            this.WMPlayer3.Location = new System.Drawing.Point(12, 199);
+            this.WMPlayer3.Location = new System.Drawing.Point(15, 223);
             this.WMPlayer3.Name = "WMPlayer3";
             this.WMPlayer3.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("WMPlayer3.OcxState")));
             this.WMPlayer3.Size = new System.Drawing.Size(271, 181);
@@ -117,7 +136,7 @@
             // WMPlayer4
             // 
             this.WMPlayer4.Enabled = true;
-            this.WMPlayer4.Location = new System.Drawing.Point(289, 199);
+            this.WMPlayer4.Location = new System.Drawing.Point(292, 223);
             this.WMPlayer4.Name = "WMPlayer4";
             this.WMPlayer4.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("WMPlayer4.OcxState")));
             this.WMPlayer4.Size = new System.Drawing.Size(271, 181);
@@ -127,7 +146,7 @@
             // 
             this.BtnPause.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnPause.Location = new System.Drawing.Point(93, 415);
+            this.BtnPause.Location = new System.Drawing.Point(87, 48);
             this.BtnPause.Name = "BtnPause";
             this.BtnPause.Size = new System.Drawing.Size(75, 23);
             this.BtnPause.TabIndex = 10;
@@ -137,14 +156,16 @@
             // 
             // txtCurrentTimeStemp
             // 
-            this.txtCurrentTimeStemp.Location = new System.Drawing.Point(174, 417);
+            this.txtCurrentTimeStemp.Location = new System.Drawing.Point(168, 50);
             this.txtCurrentTimeStemp.Name = "txtCurrentTimeStemp";
             this.txtCurrentTimeStemp.Size = new System.Drawing.Size(100, 20);
             this.txtCurrentTimeStemp.TabIndex = 11;
+            this.txtCurrentTimeStemp.Text = "0";
             // 
             // BtnSetVideoTime
             // 
-            this.BtnSetVideoTime.Location = new System.Drawing.Point(281, 417);
+            this.BtnSetVideoTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSetVideoTime.Location = new System.Drawing.Point(274, 48);
             this.BtnSetVideoTime.Name = "BtnSetVideoTime";
             this.BtnSetVideoTime.Size = new System.Drawing.Size(75, 23);
             this.BtnSetVideoTime.TabIndex = 12;
@@ -152,31 +173,202 @@
             this.BtnSetVideoTime.UseVisualStyleBackColor = true;
             this.BtnSetVideoTime.Click += new System.EventHandler(this.BtnSetVideoTime_Click);
             // 
+            // CBVideoSpeed
+            // 
+            this.CBVideoSpeed.FormattingEnabled = true;
+            this.CBVideoSpeed.Items.AddRange(new object[] {
+            "-1",
+            "-.5",
+            ".5",
+            "1",
+            "2"});
+            this.CBVideoSpeed.Location = new System.Drawing.Point(408, 49);
+            this.CBVideoSpeed.Name = "CBVideoSpeed";
+            this.CBVideoSpeed.Size = new System.Drawing.Size(45, 21);
+            this.CBVideoSpeed.TabIndex = 15;
+            this.CBVideoSpeed.Text = "2";
+            // 
+            // BtnSetVideoSpeed
+            // 
+            this.BtnSetVideoSpeed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSetVideoSpeed.Location = new System.Drawing.Point(459, 47);
+            this.BtnSetVideoSpeed.Name = "BtnSetVideoSpeed";
+            this.BtnSetVideoSpeed.Size = new System.Drawing.Size(95, 23);
+            this.BtnSetVideoSpeed.TabIndex = 14;
+            this.BtnSetVideoSpeed.Text = "Video Speed";
+            this.BtnSetVideoSpeed.UseVisualStyleBackColor = true;
+            this.BtnSetVideoSpeed.Click += new System.EventHandler(this.BtnSetVideoSpeed_Click);
+            // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(511, 20);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(95, 23);
+            this.button1.TabIndex = 21;
+            this.button1.Text = "Apply Filter";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "-1",
+            "-.5",
+            ".5",
+            "1",
+            "2"});
+            this.comboBox2.Location = new System.Drawing.Point(87, 21);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(95, 21);
+            this.comboBox2.TabIndex = 23;
+            this.comboBox2.Text = "1";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "OP/Station:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(198, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(39, 13);
+            this.label2.TabIndex = 27;
+            this.label2.Text = "Signal:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(353, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(40, 13);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "Status:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "-1",
+            "-.5",
+            ".5",
+            "1",
+            "2"});
+            this.comboBox1.Location = new System.Drawing.Point(240, 21);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(96, 21);
+            this.comboBox1.TabIndex = 30;
+            this.comboBox1.Text = "1";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "-1",
+            "-.5",
+            ".5",
+            "1",
+            "2"});
+            this.comboBox4.Location = new System.Drawing.Point(394, 21);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(105, 21);
+            this.comboBox4.TabIndex = 31;
+            this.comboBox4.Text = "1";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.comboBox4);
+            this.groupBox1.Controls.Add(this.comboBox2);
+            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Location = new System.Drawing.Point(596, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(612, 56);
+            this.groupBox1.TabIndex = 32;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Search Log File";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.groupBox2.Controls.Add(this.WMPlayer4);
+            this.groupBox2.Controls.Add(this.WMPlayer3);
+            this.groupBox2.Controls.Add(this.WMPlayer2);
+            this.groupBox2.Controls.Add(this.currentStateLabel);
+            this.groupBox2.Controls.Add(this.WMPlayer1);
+            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox2.Location = new System.Drawing.Point(12, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(578, 430);
+            this.groupBox2.TabIndex = 33;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Plant Floor Videos";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.groupBox3.Controls.Add(this.CBVideoSpeed);
+            this.groupBox3.Controls.Add(this.BtnSetVideoSpeed);
+            this.groupBox3.Controls.Add(this.BtnSetVideoTime);
+            this.groupBox3.Controls.Add(this.txtCurrentTimeStemp);
+            this.groupBox3.Controls.Add(this.BtnPause);
+            this.groupBox3.Controls.Add(this.LblVideo1File);
+            this.groupBox3.Controls.Add(this.BtnPlayPause);
+            this.groupBox3.Controls.Add(this.BtnSelect);
+            this.groupBox3.Location = new System.Drawing.Point(12, 448);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(578, 83);
+            this.groupBox3.TabIndex = 34;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "groupBox3";
+            // 
+            // ListViewLogFile
+            // 
+            this.ListViewLogFile.GridLines = true;
+            this.ListViewLogFile.Location = new System.Drawing.Point(596, 74);
+            this.ListViewLogFile.MultiSelect = false;
+            this.ListViewLogFile.Name = "ListViewLogFile";
+            this.ListViewLogFile.Size = new System.Drawing.Size(612, 457);
+            this.ListViewLogFile.TabIndex = 35;
+            this.ListViewLogFile.UseCompatibleStateImageBehavior = false;
+            this.ListViewLogFile.View = System.Windows.Forms.View.Details;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(573, 449);
-            this.Controls.Add(this.BtnSetVideoTime);
-            this.Controls.Add(this.txtCurrentTimeStemp);
-            this.Controls.Add(this.BtnPause);
-            this.Controls.Add(this.WMPlayer4);
-            this.Controls.Add(this.WMPlayer3);
-            this.Controls.Add(this.WMPlayer2);
-            this.Controls.Add(this.currentStateLabel);
-            this.Controls.Add(this.LblVideo1File);
-            this.Controls.Add(this.BtnPlayPause);
-            this.Controls.Add(this.BtnSelect);
-            this.Controls.Add(this.WMPlayer1);
+            this.ClientSize = new System.Drawing.Size(1220, 542);
+            this.Controls.Add(this.ListViewLogFile);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
-            this.Text = "CITI Video Validation";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Text = "General Motors Video Runoff";
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer4)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -193,6 +385,19 @@
         private System.Windows.Forms.Button BtnPause;
         private System.Windows.Forms.TextBox txtCurrentTimeStemp;
         private System.Windows.Forms.Button BtnSetVideoTime;
+        private System.Windows.Forms.ComboBox CBVideoSpeed;
+        private System.Windows.Forms.Button BtnSetVideoSpeed;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ListView ListViewLogFile;
     }
 }
 

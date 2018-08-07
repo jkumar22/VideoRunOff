@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,19 +13,29 @@ namespace VideoRunOff
 {
     public partial class Form1 : Form
     {
-        // Test pushing from work laptop
+        AxWMPLib.AxWindowsMediaPlayer[] videoplayers;
 
         public Form1()
         {
             InitializeComponent();
-            WMPlayer1.settings.mute = true;
-            WMPlayer2.settings.mute = true;
-            WMPlayer3.settings.mute = true;
-            WMPlayer4.settings.mute = true;
-            WMPlayer1.settings.autoStart = false;
-            WMPlayer2.settings.autoStart = false;
-            WMPlayer3.settings.autoStart = false;
-            WMPlayer4.settings.autoStart = false;
+            videoplayers = new AxWMPLib.AxWindowsMediaPlayer[] { WMPlayer1, WMPlayer2, WMPlayer3, WMPlayer4 };
+
+            for (int i = 0; i < videoplayers.Length; i++)
+            {
+                // Disabling Audio, Autostart of the video
+                videoplayers[i].settings.mute = true;
+                videoplayers[i].settings.autoStart = false;
+                videoplayers[i].settings.rate = Convert.ToDouble(CBVideoSpeed.Text); 
+            }
+
+            //LVlogFile.Items.AddRange(new string[] {"System.Xml", "System.Net", "System.Runtime.Remoting","System.Web"});
+            int columnWidth = 150;
+            ListViewLogFile.Columns.Add("Time Stemp", columnWidth);
+            ListViewLogFile.Columns.Add("OP/Station", columnWidth);
+            ListViewLogFile.Columns.Add("Signal", columnWidth);
+            ListViewLogFile.Columns.Add("Status", columnWidth);
+            ListViewLogFile.ite
+
         }
 
         private void BtnSelect_Click(object sender, EventArgs e)
@@ -33,11 +44,16 @@ namespace VideoRunOff
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                // setting each video file in the folder to a media player
                 this.LblVideo1File.Text = openFileDialog.FileName;
-                WMPlayer1.URL = LblVideo1File.Text;
-                WMPlayer2.URL = LblVideo1File.Text;
-                WMPlayer3.URL = LblVideo1File.Text;
-                WMPlayer4.URL = LblVideo1File.Text;
+                string folderPath = Path.GetDirectoryName(openFileDialog.FileName);
+                // retriving path and file name for each video file
+                string[] fileArray = Directory.GetFiles(folderPath);
+
+                for (int i = 0; i < videoplayers.Length; i++)
+                {
+                    videoplayers[i].URL = fileArray[i];
+                }
             }
         }
 
@@ -45,10 +61,11 @@ namespace VideoRunOff
         {
             if ((LblVideo1File.Text != "") && ("Playing" != currentStateLabel.Text))
             {
-                WMPlayer1.Ctlcontrols.play();
-                WMPlayer2.Ctlcontrols.play();
-                WMPlayer3.Ctlcontrols.play();
-                WMPlayer4.Ctlcontrols.play();
+                for (int i = 0; i < videoplayers.Length; i++)
+                {
+                    videoplayers[i].Ctlcontrols.play();
+                    videoplayers[i].settings.rate = Convert.ToDouble(CBVideoSpeed.Text);
+                }
             }
         }
 
@@ -57,22 +74,34 @@ namespace VideoRunOff
             if ((LblVideo1File.Text != "") && ("Paused" != currentStateLabel.Text))
             {
                 txtCurrentTimeStemp.Text = WMPlayer1.Ctlcontrols.currentPosition.ToString();
-                WMPlayer1.Ctlcontrols.pause();
-                WMPlayer2.Ctlcontrols.pause();
-                WMPlayer3.Ctlcontrols.pause();
-                WMPlayer4.Ctlcontrols.pause();
 
+                for (int i = 0; i < videoplayers.Length; i++)
+                {
+                    videoplayers[i].Ctlcontrols.pause();
+                }
             }
         }
 
         private void BtnSetVideoTime_Click(object sender, EventArgs e)
         {
-            WMPlayer1.Ctlcontrols.currentPosition = Convert.ToDouble(txtCurrentTimeStemp.Text);
-            WMPlayer2.Ctlcontrols.currentPosition = Convert.ToDouble(txtCurrentTimeStemp.Text);
-            WMPlayer3.Ctlcontrols.currentPosition = Convert.ToDouble(txtCurrentTimeStemp.Text);
-            WMPlayer4.Ctlcontrols.currentPosition = Convert.ToDouble(txtCurrentTimeStemp.Text);
+            for (int i = 0; i < videoplayers.Length; i++)
+            {
+                videoplayers[i].Ctlcontrols.currentPosition = Convert.ToDouble(txtCurrentTimeStemp.Text);
+            }
         }
 
+        private void BtnSetVideoSpeed_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < videoplayers.Length; i++)
+            {
+                videoplayers[i].settings.rate = Convert.ToDouble(CBVideoSpeed.Text);
+            }
+        }
+
+        private void LVlogFile_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
