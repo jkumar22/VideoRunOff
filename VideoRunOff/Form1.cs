@@ -14,6 +14,11 @@ namespace VideoRunOff
     public partial class Form1 : Form
     {
         AxWMPLib.AxWindowsMediaPlayer[] videoplayers;
+        HashSet<string> timeStempHashset = new HashSet<string>();
+        HashSet<string> StationHashset = new HashSet<string>();
+        HashSet<string> SignalHashset = new HashSet<string>();
+        HashSet<string> StatusHashset = new HashSet<string>();
+
 
         public Form1()
         {
@@ -100,7 +105,7 @@ namespace VideoRunOff
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.DefaultExt = ".txt";
-            openFileDialog.Filter = " (*watch*.txt) | *watch*.txt";
+            openFileDialog.Filter = " Watch logs| *_WATCH*.txt | Text Files (*.txt)|*.txt";
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -112,21 +117,53 @@ namespace VideoRunOff
 
                 foreach (string line in lines)
                 {
+                    if (line.Substring(0,5) == "GM IT")
+                    {
+                        continue; 
+                    }
                     // Use a tab to indent each line of the file.
-                    string timeStemp = line.Substring(1,23);
-                    string station = line.Substring(47, 6);
-                    string signal = "Test0";//line.Substring(52,line.IndexOf(','));
-                    string status = "Test";//line.Substring();
+                    String TempString = line; 
+                    string timeStemp = TempString.Substring(1,23);
+                    TempString = TempString.Substring(47);
+                    string station = TempString.Substring(0, 6);
+                    TempString = TempString.Substring(6);
+                    string signal = TempString.Substring(0, TempString.IndexOf(','));
+                    TempString = TempString.Substring(TempString.IndexOf(','));
+                    string status = TempString.Substring(1, TempString.IndexOf('"')-1);
+                    TempString = null;
+
                     ListViewItem LVItem = new ListViewItem();
                     LVItem.Text = timeStemp;
                     LVItem.SubItems.Add(station);
                     LVItem.SubItems.Add(signal);
                     LVItem.SubItems.Add(status);
                     ListViewLogFile.Items.Add(LVItem);
+
+                    timeStempHashset.Add("");
+                    StationHashset.Add("");
+                    SignalHashset.Add("");
+                    StatusHashset.Add("");
+                    timeStempHashset.Add(timeStemp);
+                    StationHashset.Add(station);
+                    SignalHashset.Add(signal);
+                    StatusHashset.Add(status);
                 }
 
             }
+            FillFilterComboBox(StationHashset, CBStations);
+            FillFilterComboBox(SignalHashset, CBSignal);
+            FillFilterComboBox(StatusHashset, CBStatus);
+
         }
+
+        private void FillFilterComboBox(HashSet<string> tempHashSet, ComboBox tempCombobox)
+        {
+            List<string> tempList = tempHashSet.ToList();
+            BindingSource theBindingSource = new BindingSource();
+            theBindingSource.DataSource = tempList;  
+            tempCombobox.DataSource = theBindingSource.DataSource;
+        }
+
     }
 
 }

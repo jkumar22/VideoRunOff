@@ -43,17 +43,17 @@
             this.CBVideoSpeed = new System.Windows.Forms.ComboBox();
             this.BtnSetVideoSpeed = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.CBStations = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.CBSignal = new System.Windows.Forms.ComboBox();
+            this.CBStatus = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.ListViewLogFile = new System.Windows.Forms.ListView();
             this.BtnSelectLogFile = new System.Windows.Forms.Button();
+            this.ListViewLogFile = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer3)).BeginInit();
@@ -203,27 +203,22 @@
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(511, 20);
+            this.button1.Location = new System.Drawing.Point(523, 20);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 23);
+            this.button1.Size = new System.Drawing.Size(83, 23);
             this.button1.TabIndex = 21;
             this.button1.Text = "Apply Filter";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // comboBox2
+            // CBStations
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "-1",
-            "-.5",
-            ".5",
-            "1",
-            "2"});
-            this.comboBox2.Location = new System.Drawing.Point(87, 21);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(95, 21);
-            this.comboBox2.TabIndex = 23;
-            this.comboBox2.Text = "1";
+            this.CBStations.FormattingEnabled = true;
+            this.CBStations.Items.AddRange(new object[] {
+            ""});
+            this.CBStations.Location = new System.Drawing.Point(87, 21);
+            this.CBStations.Name = "CBStations";
+            this.CBStations.Size = new System.Drawing.Size(95, 21);
+            this.CBStations.TabIndex = 23;
             // 
             // label1
             // 
@@ -238,7 +233,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(198, 24);
+            this.label2.Location = new System.Drawing.Point(195, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 13);
             this.label2.TabIndex = 27;
@@ -255,43 +250,29 @@
             this.label3.Text = "Status:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // comboBox1
+            // CBSignal
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "-1",
-            "-.5",
-            ".5",
-            "1",
-            "2"});
-            this.comboBox1.Location = new System.Drawing.Point(240, 21);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(96, 21);
-            this.comboBox1.TabIndex = 30;
-            this.comboBox1.Text = "1";
+            this.CBSignal.FormattingEnabled = true;
+            this.CBSignal.Location = new System.Drawing.Point(234, 21);
+            this.CBSignal.Name = "CBSignal";
+            this.CBSignal.Size = new System.Drawing.Size(113, 21);
+            this.CBSignal.TabIndex = 30;
             // 
-            // comboBox4
+            // CBStatus
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "-1",
-            "-.5",
-            ".5",
-            "1",
-            "2"});
-            this.comboBox4.Location = new System.Drawing.Point(394, 21);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(105, 21);
-            this.comboBox4.TabIndex = 31;
-            this.comboBox4.Text = "1";
+            this.CBStatus.FormattingEnabled = true;
+            this.CBStatus.Location = new System.Drawing.Point(394, 21);
+            this.CBStatus.Name = "CBStatus";
+            this.CBStatus.Size = new System.Drawing.Size(123, 21);
+            this.CBStatus.TabIndex = 31;
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.comboBox4);
-            this.groupBox1.Controls.Add(this.comboBox2);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.CBStatus);
+            this.groupBox1.Controls.Add(this.CBStations);
+            this.groupBox1.Controls.Add(this.CBSignal);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
@@ -338,18 +319,6 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "groupBox3";
             // 
-            // ListViewLogFile
-            // 
-            this.ListViewLogFile.FullRowSelect = true;
-            this.ListViewLogFile.GridLines = true;
-            this.ListViewLogFile.Location = new System.Drawing.Point(596, 74);
-            this.ListViewLogFile.MultiSelect = false;
-            this.ListViewLogFile.Name = "ListViewLogFile";
-            this.ListViewLogFile.Size = new System.Drawing.Size(612, 457);
-            this.ListViewLogFile.TabIndex = 35;
-            this.ListViewLogFile.UseCompatibleStateImageBehavior = false;
-            this.ListViewLogFile.View = System.Windows.Forms.View.Details;
-            // 
             // BtnSelectLogFile
             // 
             this.BtnSelectLogFile.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -361,6 +330,18 @@
             this.BtnSelectLogFile.Text = "Select Log File";
             this.BtnSelectLogFile.UseVisualStyleBackColor = true;
             this.BtnSelectLogFile.Click += new System.EventHandler(this.BtnSelectLogFile_Click);
+            // 
+            // ListViewLogFile
+            // 
+            this.ListViewLogFile.FullRowSelect = true;
+            this.ListViewLogFile.GridLines = true;
+            this.ListViewLogFile.Location = new System.Drawing.Point(596, 74);
+            this.ListViewLogFile.MultiSelect = false;
+            this.ListViewLogFile.Name = "ListViewLogFile";
+            this.ListViewLogFile.Size = new System.Drawing.Size(612, 457);
+            this.ListViewLogFile.TabIndex = 35;
+            this.ListViewLogFile.UseCompatibleStateImageBehavior = false;
+            this.ListViewLogFile.View = System.Windows.Forms.View.Details;
             // 
             // Form1
             // 
@@ -403,12 +384,12 @@
         private System.Windows.Forms.ComboBox CBVideoSpeed;
         private System.Windows.Forms.Button BtnSetVideoSpeed;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox CBStations;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox CBSignal;
+        private System.Windows.Forms.ComboBox CBStatus;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
