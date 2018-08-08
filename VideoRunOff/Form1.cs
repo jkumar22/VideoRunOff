@@ -18,6 +18,7 @@ namespace VideoRunOff
         HashSet<string> StationHashset = new HashSet<string>();
         HashSet<string> SignalHashset = new HashSet<string>();
         HashSet<string> StatusHashset = new HashSet<string>();
+        //Array<string> logDataArray = new Array<string>; 
 
 
         public Form1()
@@ -105,7 +106,7 @@ namespace VideoRunOff
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.DefaultExt = ".txt";
-            openFileDialog.Filter = " Watch logs| *_WATCH*.txt | Text Files (*.txt)|*.txt";
+            openFileDialog.Filter = " Watch logs| *_Watch*.txt | Text Files (*.txt)|*.txt";
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -164,6 +165,28 @@ namespace VideoRunOff
             tempCombobox.DataSource = theBindingSource.DataSource;
         }
 
+        private void CBStations_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            string FiltedStation = (string)CBStations.SelectedItem;
+
+            if (FiltedStation != "" && CBSignal.SelectedText == "" && CBStatus.SelectedText == "")
+            {
+
+            }
+            else if (CBStations.SelectedText != "" && CBSignal.SelectedText == "" && CBStatus.SelectedText != "")
+            {
+
+            }
+            else if (CBStations.SelectedText != "" && CBSignal.SelectedText != "" && CBStatus.SelectedText == "")
+            {
+
+            }
+            else if (CBStations.SelectedText != "" && CBSignal.SelectedText != "" && CBStatus.SelectedText != "")
+            {
+
+            }
+        }
     }
 
 }

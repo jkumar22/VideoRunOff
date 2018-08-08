@@ -219,6 +219,7 @@
             this.CBStations.Name = "CBStations";
             this.CBStations.Size = new System.Drawing.Size(95, 21);
             this.CBStations.TabIndex = 23;
+            this.CBStations.SelectedIndexChanged += new System.EventHandler(this.CBStations_SelectedIndexChanged);
             // 
             // label1
             // 
