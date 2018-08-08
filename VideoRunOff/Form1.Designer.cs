@@ -53,6 +53,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.ListViewLogFile = new System.Windows.Forms.ListView();
+            this.BtnSelectLogFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer3)).BeginInit();
@@ -321,6 +322,7 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.groupBox3.Controls.Add(this.BtnSelectLogFile);
             this.groupBox3.Controls.Add(this.CBVideoSpeed);
             this.groupBox3.Controls.Add(this.BtnSetVideoSpeed);
             this.groupBox3.Controls.Add(this.BtnSetVideoTime);
@@ -338,6 +340,7 @@
             // 
             // ListViewLogFile
             // 
+            this.ListViewLogFile.FullRowSelect = true;
             this.ListViewLogFile.GridLines = true;
             this.ListViewLogFile.Location = new System.Drawing.Point(596, 74);
             this.ListViewLogFile.MultiSelect = false;
@@ -346,6 +349,18 @@
             this.ListViewLogFile.TabIndex = 35;
             this.ListViewLogFile.UseCompatibleStateImageBehavior = false;
             this.ListViewLogFile.View = System.Windows.Forms.View.Details;
+            // 
+            // BtnSelectLogFile
+            // 
+            this.BtnSelectLogFile.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnSelectLogFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSelectLogFile.Location = new System.Drawing.Point(459, 14);
+            this.BtnSelectLogFile.Name = "BtnSelectLogFile";
+            this.BtnSelectLogFile.Size = new System.Drawing.Size(95, 23);
+            this.BtnSelectLogFile.TabIndex = 16;
+            this.BtnSelectLogFile.Text = "Select Log File";
+            this.BtnSelectLogFile.UseVisualStyleBackColor = true;
+            this.BtnSelectLogFile.Click += new System.EventHandler(this.BtnSelectLogFile_Click);
             // 
             // Form1
             // 
@@ -398,6 +413,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ListView ListViewLogFile;
+        private System.Windows.Forms.Button BtnSelectLogFile;
     }
 }
 

@@ -34,8 +34,6 @@ namespace VideoRunOff
             ListViewLogFile.Columns.Add("OP/Station", columnWidth);
             ListViewLogFile.Columns.Add("Signal", columnWidth);
             ListViewLogFile.Columns.Add("Status", columnWidth);
-            ListViewLogFile.ite
-
         }
 
         private void BtnSelect_Click(object sender, EventArgs e)
@@ -98,9 +96,36 @@ namespace VideoRunOff
             }
         }
 
-        private void LVlogFile_SelectedIndexChanged(object sender, EventArgs e)
+        private void BtnSelectLogFile_Click(object sender, EventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".txt";
+            openFileDialog.Filter = " (*watch*.txt) | *watch*.txt";
 
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string logFileName;
+                logFileName = openFileDialog.FileName;
+                // Read each line of the file into a string array. Each element
+                // of the array is one line of the file.
+                string[] lines = System.IO.File.ReadAllLines(logFileName);
+
+                foreach (string line in lines)
+                {
+                    // Use a tab to indent each line of the file.
+                    string timeStemp = line.Substring(1,23);
+                    string station = line.Substring(47, 6);
+                    string signal = "Test0";//line.Substring(52,line.IndexOf(','));
+                    string status = "Test";//line.Substring();
+                    ListViewItem LVItem = new ListViewItem();
+                    LVItem.Text = timeStemp;
+                    LVItem.SubItems.Add(station);
+                    LVItem.SubItems.Add(signal);
+                    LVItem.SubItems.Add(status);
+                    ListViewLogFile.Items.Add(LVItem);
+                }
+
+            }
         }
     }
 
