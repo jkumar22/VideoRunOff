@@ -188,13 +188,17 @@ namespace VideoRunOff
 
             ////List<string> filteredList = new List<string>();
             ////filteredList = FilterSelectionChanged(CBStations.Text, CBSignal.Text, CBStatus.Text); 
-            FilterSelectionChanged(CBStations.Text, CBSignal.Text, CBStatus.Text); 
+            FilterSelectionChanged(CBStations.Text, CBSignal.Text, CBStatus.Text);
+            FillFilterComboBox(SignalHashset, CBSignal);
+            FillFilterComboBox(StatusHashset, CBStatus);
         }
 
         private void CBSignal_SelectedIndexChanged(object sender, EventArgs e)
         {
             CBStatus.Text = ""; 
             FilterSelectionChanged(CBStations.Text, CBSignal.Text, CBStatus.Text);
+            FillFilterComboBox(SignalHashset, CBSignal);
+            FillFilterComboBox(StatusHashset, CBStatus);
         }
 
         private void CBStatus_SelectedIndexChanged(object sender, EventArgs e)
@@ -204,6 +208,8 @@ namespace VideoRunOff
 
         public void FilterSelectionChanged(string FilterStation, string FilterSignal, string FilterStatus)
         {
+            SignalHashset.Clear();
+            StatusHashset.Clear();
 
             if (FilterStation != "" && FilterSignal == "" && FilterStatus == "")
             {
@@ -218,6 +224,11 @@ namespace VideoRunOff
                         LVItem.SubItems.Add(logfiledataList[i].Signal);
                         LVItem.SubItems.Add(logfiledataList[i].Status);
                         ListViewLogFile.Items.Add(LVItem);
+
+                        SignalHashset.Add("");
+                        StatusHashset.Add("");
+                        SignalHashset.Add(logfiledataList[i].Signal);
+                        StatusHashset.Add(logfiledataList[i].Status);
                     }
                 }
             }
@@ -234,6 +245,9 @@ namespace VideoRunOff
                         LVItem.SubItems.Add(logfiledataList[i].Signal);
                         LVItem.SubItems.Add(logfiledataList[i].Status);
                         ListViewLogFile.Items.Add(LVItem);
+
+                        StatusHashset.Add("");
+                        StatusHashset.Add(logfiledataList[i].Status);
                     }
                 }
 
@@ -251,6 +265,9 @@ namespace VideoRunOff
                         LVItem.SubItems.Add(logfiledataList[i].Signal);
                         LVItem.SubItems.Add(logfiledataList[i].Status);
                         ListViewLogFile.Items.Add(LVItem);
+
+                        StatusHashset.Add("");
+                        StatusHashset.Add(logfiledataList[i].Status);
                     }
                 }
 
