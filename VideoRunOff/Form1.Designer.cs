@@ -209,6 +209,7 @@
             this.button1.TabIndex = 21;
             this.button1.Text = "Apply Filter";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             // 
             // CBStations
             // 
@@ -258,6 +259,7 @@
             this.CBSignal.Name = "CBSignal";
             this.CBSignal.Size = new System.Drawing.Size(113, 21);
             this.CBSignal.TabIndex = 30;
+            this.CBSignal.SelectedIndexChanged += new System.EventHandler(this.CBSignal_SelectedIndexChanged);
             // 
             // CBStatus
             // 
@@ -266,6 +268,7 @@
             this.CBStatus.Name = "CBStatus";
             this.CBStatus.Size = new System.Drawing.Size(123, 21);
             this.CBStatus.TabIndex = 31;
+            this.CBStatus.SelectedIndexChanged += new System.EventHandler(this.CBStatus_SelectedIndexChanged);
             // 
             // groupBox1
             // 

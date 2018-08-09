@@ -18,7 +18,7 @@ namespace VideoRunOff
         HashSet<string> StationHashset = new HashSet<string>();
         HashSet<string> SignalHashset = new HashSet<string>();
         HashSet<string> StatusHashset = new HashSet<string>();
-        //Array<string> logDataArray = new Array<string>; 
+        List<logFileData> logfiledataList = new List<logFileData>(); 
 
 
         public Form1()
@@ -106,7 +106,7 @@ namespace VideoRunOff
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.DefaultExt = ".txt";
-            openFileDialog.Filter = " Watch logs| *_Watch*.txt | Text Files (*.txt)|*.txt";
+            openFileDialog.Filter = " Watch logs|*.txt";
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -133,13 +133,6 @@ namespace VideoRunOff
                     string status = TempString.Substring(1, TempString.IndexOf('"')-1);
                     TempString = null;
 
-                    ListViewItem LVItem = new ListViewItem();
-                    LVItem.Text = timeStemp;
-                    LVItem.SubItems.Add(station);
-                    LVItem.SubItems.Add(signal);
-                    LVItem.SubItems.Add(status);
-                    ListViewLogFile.Items.Add(LVItem);
-
                     timeStempHashset.Add("");
                     StationHashset.Add("");
                     SignalHashset.Add("");
@@ -148,13 +141,36 @@ namespace VideoRunOff
                     StationHashset.Add(station);
                     SignalHashset.Add(signal);
                     StatusHashset.Add(status);
+
+                    logfiledataList.Add(new logFileData
+                    {
+                        TimeStemp = timeStemp,
+                        Station = station,
+                        Signal = signal,
+                        Status = status
+                    });
                 }
 
             }
+            LoadListView();
             FillFilterComboBox(StationHashset, CBStations);
             FillFilterComboBox(SignalHashset, CBSignal);
             FillFilterComboBox(StatusHashset, CBStatus);
 
+        }
+
+        private void LoadListView()
+        {
+
+            for (int i = 0; i < logfiledataList.Count; i++)
+            {
+                ListViewItem LVItem = new ListViewItem();
+                LVItem.Text = logfiledataList[i].TimeStemp;
+                LVItem.SubItems.Add(logfiledataList[i].Station);
+                LVItem.SubItems.Add(logfiledataList[i].Signal);
+                LVItem.SubItems.Add(logfiledataList[i].Status);
+                ListViewLogFile.Items.Add(LVItem);
+            }
         }
 
         private void FillFilterComboBox(HashSet<string> tempHashSet, ComboBox tempCombobox)
@@ -167,23 +183,76 @@ namespace VideoRunOff
 
         private void CBStations_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox comboBox = (ComboBox)sender;
-            string FiltedStation = (string)CBStations.SelectedItem;
+            //ComboBox comboBox = (ComboBox)sender;
+            //string FiltedStation = (string)CBStations.SelectedItem;
 
-            if (FiltedStation != "" && CBSignal.SelectedText == "" && CBStatus.SelectedText == "")
+            ////List<string> filteredList = new List<string>();
+            ////filteredList = FilterSelectionChanged(CBStations.Text, CBSignal.Text, CBStatus.Text); 
+            FilterSelectionChanged(CBStations.Text, CBSignal.Text, CBStatus.Text); 
+        }
+
+        private void CBSignal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CBStatus.Text = ""; 
+            FilterSelectionChanged(CBStations.Text, CBSignal.Text, CBStatus.Text);
+        }
+
+        private void CBStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FilterSelectionChanged(CBStations.Text, CBSignal.Text, CBStatus.Text);
+        }
+
+        public void FilterSelectionChanged(string FilterStation, string FilterSignal, string FilterStatus)
+        {
+
+            if (FilterStation != "" && FilterSignal == "" && FilterStatus == "")
             {
-
+                ListViewLogFile.Items.Clear();
+                for (int i = 0; i < logfiledataList.Count; i++)
+                {
+                    if (logfiledataList[i].Station == FilterStation)
+                    {
+                        ListViewItem LVItem = new ListViewItem();
+                        LVItem.Text = logfiledataList[i].TimeStemp;
+                        LVItem.SubItems.Add(logfiledataList[i].Station);
+                        LVItem.SubItems.Add(logfiledataList[i].Signal);
+                        LVItem.SubItems.Add(logfiledataList[i].Status);
+                        ListViewLogFile.Items.Add(LVItem);
+                    }
+                }
             }
-            else if (CBStations.SelectedText != "" && CBSignal.SelectedText == "" && CBStatus.SelectedText != "")
+            else if (FilterStation != "" && FilterSignal != "" && FilterStatus != "")
             {
+                ListViewLogFile.Items.Clear();
+                for (int i = 0; i < logfiledataList.Count; i++)
+                {
+                    if (logfiledataList[i].Station == FilterStation && logfiledataList[i].Signal == FilterSignal && logfiledataList[i].Status == FilterStatus)
+                    {
+                        ListViewItem LVItem = new ListViewItem();
+                        LVItem.Text = logfiledataList[i].TimeStemp;
+                        LVItem.SubItems.Add(logfiledataList[i].Station);
+                        LVItem.SubItems.Add(logfiledataList[i].Signal);
+                        LVItem.SubItems.Add(logfiledataList[i].Status);
+                        ListViewLogFile.Items.Add(LVItem);
+                    }
+                }
 
-            }
-            else if (CBStations.SelectedText != "" && CBSignal.SelectedText != "" && CBStatus.SelectedText == "")
+             }
+            else if (FilterStation != "" && FilterSignal != "" && FilterStatus == "")
             {
-
-            }
-            else if (CBStations.SelectedText != "" && CBSignal.SelectedText != "" && CBStatus.SelectedText != "")
-            {
+                ListViewLogFile.Items.Clear();
+                for (int i = 0; i < logfiledataList.Count; i++)
+                {
+                    if (logfiledataList[i].Station == FilterStation && logfiledataList[i].Signal == FilterSignal)
+                    {
+                        ListViewItem LVItem = new ListViewItem();
+                        LVItem.Text = logfiledataList[i].TimeStemp;
+                        LVItem.SubItems.Add(logfiledataList[i].Station);
+                        LVItem.SubItems.Add(logfiledataList[i].Signal);
+                        LVItem.SubItems.Add(logfiledataList[i].Status);
+                        ListViewLogFile.Items.Add(LVItem);
+                    }
+                }
 
             }
         }
