@@ -213,6 +213,10 @@
             // 
             // CBStations
             // 
+            this.CBStations.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.CBStations.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CBStations.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBStations.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CBStations.FormattingEnabled = true;
             this.CBStations.Items.AddRange(new object[] {
             ""});
@@ -254,6 +258,10 @@
             // 
             // CBSignal
             // 
+            this.CBSignal.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.CBSignal.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CBSignal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBSignal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CBSignal.FormattingEnabled = true;
             this.CBSignal.Location = new System.Drawing.Point(234, 21);
             this.CBSignal.Name = "CBSignal";
@@ -263,6 +271,10 @@
             // 
             // CBStatus
             // 
+            this.CBStatus.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.CBStatus.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CBStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CBStatus.FormattingEnabled = true;
             this.CBStatus.Location = new System.Drawing.Point(394, 21);
             this.CBStatus.Name = "CBStatus";
@@ -280,7 +292,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(596, 12);
+            this.groupBox1.Location = new System.Drawing.Point(596, 20);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(612, 56);
             this.groupBox1.TabIndex = 32;
@@ -297,7 +309,7 @@
             this.groupBox2.Controls.Add(this.WMPlayer1);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.groupBox2.Location = new System.Drawing.Point(12, 12);
+            this.groupBox2.Location = new System.Drawing.Point(12, 20);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(578, 430);
             this.groupBox2.TabIndex = 33;
@@ -316,7 +328,7 @@
             this.groupBox3.Controls.Add(this.LblVideo1File);
             this.groupBox3.Controls.Add(this.BtnPlayPause);
             this.groupBox3.Controls.Add(this.BtnSelect);
-            this.groupBox3.Location = new System.Drawing.Point(12, 448);
+            this.groupBox3.Location = new System.Drawing.Point(12, 456);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(578, 83);
             this.groupBox3.TabIndex = 34;
@@ -337,12 +349,17 @@
             // 
             // ListViewLogFile
             // 
+            this.ListViewLogFile.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.ListViewLogFile.AllowColumnReorder = true;
+            this.ListViewLogFile.AllowDrop = true;
+            this.ListViewLogFile.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ListViewLogFile.FullRowSelect = true;
             this.ListViewLogFile.GridLines = true;
-            this.ListViewLogFile.Location = new System.Drawing.Point(596, 74);
+            this.ListViewLogFile.HideSelection = false;
+            this.ListViewLogFile.Location = new System.Drawing.Point(596, 83);
             this.ListViewLogFile.MultiSelect = false;
             this.ListViewLogFile.Name = "ListViewLogFile";
-            this.ListViewLogFile.Size = new System.Drawing.Size(612, 457);
+            this.ListViewLogFile.Size = new System.Drawing.Size(612, 456);
             this.ListViewLogFile.TabIndex = 35;
             this.ListViewLogFile.UseCompatibleStateImageBehavior = false;
             this.ListViewLogFile.View = System.Windows.Forms.View.Details;
@@ -351,11 +368,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1220, 542);
+            this.ClientSize = new System.Drawing.Size(1228, 557);
             this.Controls.Add(this.ListViewLogFile);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Name = "Form1";
             this.Text = "General Motors Video Runoff";
             ((System.ComponentModel.ISupportInitialize)(this.WMPlayer1)).EndInit();

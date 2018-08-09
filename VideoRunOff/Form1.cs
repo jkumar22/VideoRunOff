@@ -26,7 +26,7 @@ namespace VideoRunOff
             InitializeComponent();
             videoplayers = new AxWMPLib.AxWindowsMediaPlayer[] { WMPlayer1, WMPlayer2, WMPlayer3, WMPlayer4 };
 
-            for (int i = 0; i < videoplayers.Length; i++)
+            for (int i = 0; i < videoplayers.Count(); i++)
             {
                 // Disabling Audio, Autostart of the video
                 videoplayers[i].settings.mute = true;
@@ -52,12 +52,23 @@ namespace VideoRunOff
                 this.LblVideo1File.Text = openFileDialog.FileName;
                 string folderPath = Path.GetDirectoryName(openFileDialog.FileName);
                 // retriving path and file name for each video file
-                string[] fileArray = Directory.GetFiles(folderPath);
 
-                for (int i = 0; i < videoplayers.Length; i++)
+                string VideosupportedExtensions = "*.m4v,*.mp4";
+                int i = 0;
+                foreach (string videoFile in Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories).Where(s => VideosupportedExtensions.Contains(Path.GetExtension(s).ToLower())))
                 {
-                    videoplayers[i].URL = fileArray[i];
+                    videoplayers[i].URL = videoFile.ToString();
+                    i++; 
+                    if (i>videoplayers.Count()) i = 0; 
                 }
+
+                string logFilesupportedExtensions = "*.txt";
+                foreach (string LogFile in Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories).Where(s => logFilesupportedExtensions.Contains(Path.GetExtension(s).ToLower())))
+                {
+                    readLogFile(LogFile);
+                    break;
+                }
+
             }
         }
 
@@ -112,56 +123,60 @@ namespace VideoRunOff
             {
                 string logFileName;
                 logFileName = openFileDialog.FileName;
-                // Read each line of the file into a string array. Each element
-                // of the array is one line of the file.
-                string[] lines = System.IO.File.ReadAllLines(logFileName);
-
-                foreach (string line in lines)
-                {
-                    if (line.Substring(0,5) == "GM IT")
-                    {
-                        continue; 
-                    }
-                    // Use a tab to indent each line of the file.
-                    String TempString = line; 
-                    string timeStemp = TempString.Substring(1,23);
-                    TempString = TempString.Substring(47);
-                    string station = TempString.Substring(0, 6);
-                    TempString = TempString.Substring(6);
-                    string signal = TempString.Substring(0, TempString.IndexOf(','));
-                    TempString = TempString.Substring(TempString.IndexOf(','));
-                    string status = TempString.Substring(1, TempString.IndexOf('"')-1);
-                    TempString = null;
-
-                    timeStempHashset.Add("");
-                    StationHashset.Add("");
-                    SignalHashset.Add("");
-                    StatusHashset.Add("");
-                    timeStempHashset.Add(timeStemp);
-                    StationHashset.Add(station);
-                    SignalHashset.Add(signal);
-                    StatusHashset.Add(status);
-
-                    logfiledataList.Add(new logFileData
-                    {
-                        TimeStemp = timeStemp,
-                        Station = station,
-                        Signal = signal,
-                        Status = status
-                    });
-                }
-
+                readLogFile(logFileName);
             }
+        }
+
+        private void readLogFile(string logFileName)
+        {
+            // Read each line of the file into a string array. Each element
+            // of the array is one line of the file.
+            string[] lines = System.IO.File.ReadAllLines(logFileName);
+
+            foreach (string line in lines)
+            {
+                if (line.Substring(0, 5) == "GM IT")
+                {
+                    continue;
+                }
+                // Use a tab to indent each line of the file.
+                String TempString = line;
+                string timeStemp = TempString.Substring(1, 23);
+                TempString = TempString.Substring(47);
+                string station = TempString.Substring(0, 6);
+                TempString = TempString.Substring(6);
+                string signal = TempString.Substring(0, TempString.IndexOf(','));
+                TempString = TempString.Substring(TempString.IndexOf(','));
+                string status = TempString.Substring(1, TempString.IndexOf('"') - 1);
+                TempString = null;
+
+                timeStempHashset.Add("");
+                StationHashset.Add("");
+                SignalHashset.Add("");
+                StatusHashset.Add("");
+                timeStempHashset.Add(timeStemp);
+                StationHashset.Add(station);
+                SignalHashset.Add(signal);
+                StatusHashset.Add(status);
+
+                logfiledataList.Add(new logFileData
+                {
+                    TimeStemp = timeStemp,
+                    Station = station,
+                    Signal = signal,
+                    Status = status
+                });
+            }
+
             LoadListView();
             FillFilterComboBox(StationHashset, CBStations);
             FillFilterComboBox(SignalHashset, CBSignal);
             FillFilterComboBox(StatusHashset, CBStatus);
-
         }
 
         private void LoadListView()
         {
-
+            ListViewLogFile.Items.Clear();
             for (int i = 0; i < logfiledataList.Count; i++)
             {
                 ListViewItem LVItem = new ListViewItem();
@@ -189,15 +204,22 @@ namespace VideoRunOff
             ////List<string> filteredList = new List<string>();
             ////filteredList = FilterSelectionChanged(CBStations.Text, CBSignal.Text, CBStatus.Text); 
             FilterSelectionChanged(CBStations.Text, CBSignal.Text, CBStatus.Text);
+            string oldCBSignalVlue = CBSignal.Text;
+            string oldCBStatusVlue = CBStatus.Text;
             FillFilterComboBox(SignalHashset, CBSignal);
+            CBSignal.Text = oldCBSignalVlue;
+            CBStatus.Text =  oldCBStatusVlue;
             FillFilterComboBox(StatusHashset, CBStatus);
         }
 
         private void CBSignal_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //ComboBox comboBox = (ComboBox)sender;
+            //string Filtedsignal = (string)CBSignal.SelectedItem;
+            //CBSignal.Text = Filtedsignal;
             CBStatus.Text = ""; 
             FilterSelectionChanged(CBStations.Text, CBSignal.Text, CBStatus.Text);
-            FillFilterComboBox(SignalHashset, CBSignal);
+            //FillFilterComboBox(SignalHashset, CBSignal);
             FillFilterComboBox(StatusHashset, CBStatus);
         }
 
@@ -208,11 +230,11 @@ namespace VideoRunOff
 
         public void FilterSelectionChanged(string FilterStation, string FilterSignal, string FilterStatus)
         {
-            SignalHashset.Clear();
-            StatusHashset.Clear();
-
             if (FilterStation != "" && FilterSignal == "" && FilterStatus == "")
             {
+                SignalHashset.Clear();
+                StatusHashset.Clear();
+
                 ListViewLogFile.Items.Clear();
                 for (int i = 0; i < logfiledataList.Count; i++)
                 {
@@ -234,6 +256,9 @@ namespace VideoRunOff
             }
             else if (FilterStation != "" && FilterSignal != "" && FilterStatus != "")
             {
+                SignalHashset.Clear();
+                StatusHashset.Clear();
+
                 ListViewLogFile.Items.Clear();
                 for (int i = 0; i < logfiledataList.Count; i++)
                 {
@@ -254,6 +279,7 @@ namespace VideoRunOff
              }
             else if (FilterStation != "" && FilterSignal != "" && FilterStatus == "")
             {
+                StatusHashset.Clear();
                 ListViewLogFile.Items.Clear();
                 for (int i = 0; i < logfiledataList.Count; i++)
                 {
