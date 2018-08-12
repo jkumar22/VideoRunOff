@@ -349,7 +349,7 @@
             // 
             // ListViewLogFile
             // 
-            this.ListViewLogFile.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.ListViewLogFile.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.ListViewLogFile.AllowColumnReorder = true;
             this.ListViewLogFile.AllowDrop = true;
             this.ListViewLogFile.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -363,6 +363,8 @@
             this.ListViewLogFile.TabIndex = 35;
             this.ListViewLogFile.UseCompatibleStateImageBehavior = false;
             this.ListViewLogFile.View = System.Windows.Forms.View.Details;
+            this.ListViewLogFile.SelectedIndexChanged += new System.EventHandler(this.ListViewLogFile__SelectedIndexChanged);
+            this.ListViewLogFile.DoubleClick += new System.EventHandler(this.ListViewLogFile_DoubleClick);
             // 
             // Form1
             // 

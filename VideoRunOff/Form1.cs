@@ -53,7 +53,7 @@ namespace VideoRunOff
                 string folderPath = Path.GetDirectoryName(openFileDialog.FileName);
                 // retriving path and file name for each video file
 
-                string VideosupportedExtensions = "*.m4v,*.mp4";
+                string VideosupportedExtensions = "*.m4v,*.mp4,*.mov";
                 int i = 0;
                 foreach (string videoFile in Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories).Where(s => VideosupportedExtensions.Contains(Path.GetExtension(s).ToLower())))
                 {
@@ -298,6 +298,23 @@ namespace VideoRunOff
                 }
 
             }
+        }
+
+        private void ListViewLogFile_DoubleClick(object sender, EventArgs e)
+        {
+            string ClickedTime = ListViewLogFile.SelectedItems[0].SubItems[0].Text;
+            ClickedTime = ClickedTime.Substring(ClickedTime.IndexOf(' ')+1);
+            //MessageBox.Show(ClickedTime);
+            string firstTimeChar = ClickedTime.Substring(1, 1);
+            for (int i = 0; i < videoplayers.Length; i++)
+            {
+                videoplayers[i].Ctlcontrols.currentPosition = Convert.ToDouble(firstTimeChar);
+            }
+        }
+
+        private void ListViewLogFile__SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
