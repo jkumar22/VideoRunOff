@@ -333,7 +333,6 @@
             this.groupBox3.Size = new System.Drawing.Size(578, 83);
             this.groupBox3.TabIndex = 34;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
             // 
             // BtnSelectLogFile
             // 

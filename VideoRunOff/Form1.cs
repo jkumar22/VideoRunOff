@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,6 +16,7 @@ namespace VideoRunOff
     public partial class Form1 : Form
     {
         AxWMPLib.AxWindowsMediaPlayer[] videoplayers;
+        TimeSpan[] videoTimeSpan;
         HashSet<string> timeStempHashset = new HashSet<string>();
         HashSet<string> StationHashset = new HashSet<string>();
         HashSet<string> SignalHashset = new HashSet<string>();
@@ -25,12 +28,12 @@ namespace VideoRunOff
         {
             InitializeComponent();
             videoplayers = new AxWMPLib.AxWindowsMediaPlayer[] { WMPlayer1, WMPlayer2, WMPlayer3, WMPlayer4 };
-
+            videoTimeSpan = new TimeSpan[videoplayers.Length];
             for (int i = 0; i < videoplayers.Count(); i++)
             {
                 // Disabling Audio, Autostart of the video
                 videoplayers[i].settings.mute = true;
-                videoplayers[i].settings.autoStart = false;
+                //videoplayers[i].settings.autoStart = false;
                 videoplayers[i].settings.rate = Convert.ToDouble(CBVideoSpeed.Text); 
             }
 
@@ -53,15 +56,6 @@ namespace VideoRunOff
                 string folderPath = Path.GetDirectoryName(openFileDialog.FileName);
                 // retriving path and file name for each video file
 
-                string VideosupportedExtensions = "*.m4v,*.mp4,*.mov";
-                int i = 0;
-                foreach (string videoFile in Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories).Where(s => VideosupportedExtensions.Contains(Path.GetExtension(s).ToLower())))
-                {
-                    videoplayers[i].URL = videoFile.ToString();
-                    i++; 
-                    if (i>videoplayers.Count()) i = 0; 
-                }
-
                 string logFilesupportedExtensions = "*.txt";
                 foreach (string LogFile in Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories).Where(s => logFilesupportedExtensions.Contains(Path.GetExtension(s).ToLower())))
                 {
@@ -69,8 +63,40 @@ namespace VideoRunOff
                     break;
                 }
 
+                string VideosupportedExtensions = "*.m4v,*.mp4,*.mov";
+                int i = 0;
+                foreach (string videoFile in Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories).Where(s => VideosupportedExtensions.Contains(Path.GetExtension(s).ToLower())))
+                {
+                    videoplayers[i].URL = videoFile.ToString();
+                    string videoTimeStemp = Path.GetFileNameWithoutExtension(videoFile.ToString());
+
+                    videoTimeStemp = videoTimeStemp.Substring(2);
+                    string date = videoTimeStemp.Substring(0, videoTimeStemp.IndexOf("_"));
+                    string time = videoTimeStemp.Substring(videoTimeStemp.IndexOf("_")+1);
+                    time = time.Replace("-", ":");
+                    videoTimeSpan[i] = TimeSpan.Parse(time); 
+
+                    i++; 
+                    if (i>videoplayers.Count()) i = 0; 
+                }
+            }
+            syncVideos();
+        }
+
+        // sync each video based on the time stemp on file.
+        private void syncVideos()
+        {
+
+            TimeSpan startTimespan = videoTimeSpan[0];
+            for (int i = 0; i < videoplayers.Length; i++)
+            {
+                if (videoTimeSpan[i].CompareTo(startTimespan) > 0)
+                {
+                    var test = 11111;
+                }
             }
         }
+
 
         private void BtnPlay_Click(object sender, EventArgs e)
         {
@@ -124,6 +150,9 @@ namespace VideoRunOff
                 string logFileName;
                 logFileName = openFileDialog.FileName;
                 readLogFile(logFileName);
+
+
+
             }
         }
 
