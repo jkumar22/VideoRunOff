@@ -17,11 +17,13 @@ namespace VideoRunOff
     {
         AxWMPLib.AxWindowsMediaPlayer[] videoplayers;
         TimeSpan[] videoTimeSpan;
+        TimeSpan startTimespan = new TimeSpan();
+        TimeSpan lengthOfVideo = new TimeSpan(); 
         HashSet<string> timeStempHashset = new HashSet<string>();
         HashSet<string> StationHashset = new HashSet<string>();
         HashSet<string> SignalHashset = new HashSet<string>();
         HashSet<string> StatusHashset = new HashSet<string>();
-        List<logFileData> logfiledataList = new List<logFileData>(); 
+        List<logFileData> logfiledataList = new List<logFileData>();
 
 
         public Form1()
@@ -33,7 +35,7 @@ namespace VideoRunOff
             {
                 // Disabling Audio, Autostart of the video
                 videoplayers[i].settings.mute = true;
-                //videoplayers[i].settings.autoStart = false;
+                videoplayers[i].settings.autoStart = false;
                 videoplayers[i].settings.rate = Convert.ToDouble(CBVideoSpeed.Text); 
             }
 
@@ -52,13 +54,14 @@ namespace VideoRunOff
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 // setting each video file in the folder to a media player
-                this.LblVideo1File.Text = openFileDialog.FileName;
+                this.LblVideo1File.Text = Path.GetDirectoryName(openFileDialog.FileName);
                 string folderPath = Path.GetDirectoryName(openFileDialog.FileName);
                 // retriving path and file name for each video file
 
                 string logFilesupportedExtensions = "*.txt";
                 foreach (string LogFile in Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories).Where(s => logFilesupportedExtensions.Contains(Path.GetExtension(s).ToLower())))
                 {
+                    LblVideo1File.Text = Path.GetFileName(LogFile);
                     readLogFile(LogFile);
                     break;
                 }
@@ -74,32 +77,58 @@ namespace VideoRunOff
                     string date = videoTimeStemp.Substring(0, videoTimeStemp.IndexOf("_"));
                     string time = videoTimeStemp.Substring(videoTimeStemp.IndexOf("_")+1);
                     time = time.Replace("-", ":");
-                    videoTimeSpan[i] = TimeSpan.Parse(time); 
+                    videoTimeSpan[i] = TimeSpan.Parse(time);
 
-                    i++; 
-                    if (i>videoplayers.Count()) i = 0; 
+                    // get the highest time span of all 4 videos
+                    if (TimeSpan.Compare(startTimespan, videoTimeSpan[i]) < 0)
+                    {
+                        startTimespan = videoTimeSpan[i];
+                        lengthOfVideo = TimeSpan.FromSeconds(videoplayers[i].currentMedia.duration);
+                    }
+
+                    i++;
+                    if (i>videoplayers.Count()) i = 0;
                 }
             }
-            syncVideos();
+            // set the time span on the screen
+            txtCurrentTimeStemp.Text = startTimespan.ToString(@"hh\:mm\:ss");
+            // syncing each video based on the time stemp of file name
+            syncVideos(startTimespan);
         }
 
         // sync each video based on the time stemp on file.
-        private void syncVideos()
+        // each video will be sync to the video with highest time and other video will be forwarded to that time
+        private void syncVideos(TimeSpan setTimeto)
         {
-
-            TimeSpan startTimespan = videoTimeSpan[0];
+            double temp; // to hold differece between two video time in secounds
+            // startTime span was collected from video file with highest time
+            // all other videos will be forwareded to starttimespan
             for (int i = 0; i < videoplayers.Length; i++)
             {
-                if (videoTimeSpan[i].CompareTo(startTimespan) > 0)
+                if (TimeSpan.Compare(setTimeto, videoTimeSpan[i]) != 0)
                 {
-                    var test = 11111;
+                    temp = setTimeto.Subtract(videoTimeSpan[i]).TotalSeconds;
+                    videoplayers[i].Ctlcontrols.currentPosition = temp; 
                 }
             }
+
         }
 
+        private void ListViewLogFile_DoubleClick(object sender, EventArgs e)
+        {
+            string ClickedTime = ListViewLogFile.SelectedItems[0].SubItems[0].Text;
+            ClickedTime = ClickedTime.Substring(ClickedTime.IndexOf(' ') + 1);
+            //MessageBox.Show(ClickedTime);
+            ClickedTime = ClickedTime.Substring(0, ClickedTime.IndexOf("."));
+            txtCurrentTimeStemp.Text = ClickedTime;
+            TimeSpan tempTime = TimeSpan.Parse(ClickedTime);
+            syncVideos(tempTime);
+            BtnPlay.PerformClick(); 
+        }
 
         private void BtnPlay_Click(object sender, EventArgs e)
         {
+            
             if ((LblVideo1File.Text != "") && ("Playing" != currentStateLabel.Text))
             {
                 for (int i = 0; i < videoplayers.Length; i++)
@@ -108,6 +137,7 @@ namespace VideoRunOff
                     videoplayers[i].settings.rate = Convert.ToDouble(CBVideoSpeed.Text);
                 }
             }
+
         }
 
         private void BtnPause_Click_1(object sender, EventArgs e)
@@ -125,10 +155,8 @@ namespace VideoRunOff
 
         private void BtnSetVideoTime_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < videoplayers.Length; i++)
-            {
-                videoplayers[i].Ctlcontrols.currentPosition = Convert.ToDouble(txtCurrentTimeStemp.Text);
-            }
+            TimeSpan tempTime = TimeSpan.Parse(txtCurrentTimeStemp.Text);
+            syncVideos(tempTime);
         }
 
         private void BtnSetVideoSpeed_Click(object sender, EventArgs e)
@@ -327,23 +355,6 @@ namespace VideoRunOff
                 }
 
             }
-        }
-
-        private void ListViewLogFile_DoubleClick(object sender, EventArgs e)
-        {
-            string ClickedTime = ListViewLogFile.SelectedItems[0].SubItems[0].Text;
-            ClickedTime = ClickedTime.Substring(ClickedTime.IndexOf(' ')+1);
-            //MessageBox.Show(ClickedTime);
-            string firstTimeChar = ClickedTime.Substring(1, 1);
-            for (int i = 0; i < videoplayers.Length; i++)
-            {
-                videoplayers[i].Ctlcontrols.currentPosition = Convert.ToDouble(firstTimeChar);
-            }
-        }
-
-        private void ListViewLogFile__SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 

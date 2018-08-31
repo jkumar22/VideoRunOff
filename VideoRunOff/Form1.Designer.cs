@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.WMPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.BtnSelect = new System.Windows.Forms.Button();
-            this.BtnPlayPause = new System.Windows.Forms.Button();
+            this.BtnPlay = new System.Windows.Forms.Button();
             this.LblVideo1File = new System.Windows.Forms.Label();
             this.currentStateLabel = new System.Windows.Forms.Label();
             this.WMPlayer2 = new AxWMPLib.AxWindowsMediaPlayer();
@@ -84,17 +84,17 @@
             this.BtnSelect.UseVisualStyleBackColor = true;
             this.BtnSelect.Click += new System.EventHandler(this.BtnSelect_Click);
             // 
-            // BtnPlayPause
+            // BtnPlay
             // 
-            this.BtnPlayPause.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnPlayPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnPlayPause.Location = new System.Drawing.Point(6, 48);
-            this.BtnPlayPause.Name = "BtnPlayPause";
-            this.BtnPlayPause.Size = new System.Drawing.Size(75, 23);
-            this.BtnPlayPause.TabIndex = 3;
-            this.BtnPlayPause.Text = "Play";
-            this.BtnPlayPause.UseVisualStyleBackColor = true;
-            this.BtnPlayPause.Click += new System.EventHandler(this.BtnPlay_Click);
+            this.BtnPlay.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnPlay.Location = new System.Drawing.Point(6, 48);
+            this.BtnPlay.Name = "BtnPlay";
+            this.BtnPlay.Size = new System.Drawing.Size(75, 23);
+            this.BtnPlay.TabIndex = 3;
+            this.BtnPlay.Text = "Play";
+            this.BtnPlay.UseVisualStyleBackColor = true;
+            this.BtnPlay.Click += new System.EventHandler(this.BtnPlay_Click);
             // 
             // LblVideo1File
             // 
@@ -326,7 +326,7 @@
             this.groupBox3.Controls.Add(this.txtCurrentTimeStemp);
             this.groupBox3.Controls.Add(this.BtnPause);
             this.groupBox3.Controls.Add(this.LblVideo1File);
-            this.groupBox3.Controls.Add(this.BtnPlayPause);
+            this.groupBox3.Controls.Add(this.BtnPlay);
             this.groupBox3.Controls.Add(this.BtnSelect);
             this.groupBox3.Location = new System.Drawing.Point(12, 456);
             this.groupBox3.Name = "groupBox3";
@@ -362,7 +362,6 @@
             this.ListViewLogFile.TabIndex = 35;
             this.ListViewLogFile.UseCompatibleStateImageBehavior = false;
             this.ListViewLogFile.View = System.Windows.Forms.View.Details;
-            this.ListViewLogFile.SelectedIndexChanged += new System.EventHandler(this.ListViewLogFile__SelectedIndexChanged);
             this.ListViewLogFile.DoubleClick += new System.EventHandler(this.ListViewLogFile_DoubleClick);
             // 
             // Form1
@@ -395,7 +394,7 @@
 
         private AxWMPLib.AxWindowsMediaPlayer WMPlayer1;
         private System.Windows.Forms.Button BtnSelect;
-        private System.Windows.Forms.Button BtnPlayPause;
+        private System.Windows.Forms.Button BtnPlay;
         private System.Windows.Forms.Label LblVideo1File;
         private System.Windows.Forms.Label currentStateLabel;
         private AxWMPLib.AxWindowsMediaPlayer WMPlayer2;
