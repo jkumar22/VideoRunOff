@@ -17,6 +17,7 @@ namespace VideoRunOff
     {
         AxWMPLib.AxWindowsMediaPlayer[] videoplayers;
         TimeSpan[] videoTimeSpan;
+        int currentVideoNum = 0;
         TimeSpan startTimespan = new TimeSpan();
         TimeSpan lengthOfVideo = new TimeSpan(); 
         HashSet<string> timeStempHashset = new HashSet<string>();
@@ -25,6 +26,7 @@ namespace VideoRunOff
         HashSet<string> StatusHashset = new HashSet<string>();
         List<logFileData> logfiledataList = new List<logFileData>();
 
+        Timer MyTimer = new Timer();
 
         public Form1()
         {
@@ -39,12 +41,40 @@ namespace VideoRunOff
                 videoplayers[i].settings.rate = Convert.ToDouble(CBVideoSpeed.Text); 
             }
 
+            
+            MyTimer.Interval = (500); // 45 mins
+            MyTimer.Tick += new EventHandler(MyTimer_Tick);
+
             //LVlogFile.Items.AddRange(new string[] {"System.Xml", "System.Net", "System.Runtime.Remoting","System.Web"});
             int columnWidth = 150;
             ListViewLogFile.Columns.Add("Time Stemp", columnWidth);
             ListViewLogFile.Columns.Add("OP/Station", columnWidth);
             ListViewLogFile.Columns.Add("Signal", columnWidth);
             ListViewLogFile.Columns.Add("Status", columnWidth);
+
+        }
+
+        private void MyTimer_Tick(object sender, EventArgs e)
+        {
+            // Need to figure out how to add time to start time span on each Tick. This should work same as the clock on the 
+            //txtCurrentTimeStemp.Text = DateTime.Now.TimeOfDay.ToString();
+            TimeSpan tempCurrentTimespan = new TimeSpan(0, 0, 0);
+            Boolean areVideosPlaying = true;
+            for (int i = 0; i < videoplayers.Length; i++)
+            {
+                if (videoplayers[i].playState.Equals(1))
+                {
+                    areVideosPlaying = false;
+                    break;
+                }
+            }
+
+            if (areVideosPlaying)
+            {
+                tempCurrentTimespan = TimeSpan.FromMilliseconds(videoplayers[currentVideoNum].Ctlcontrols.currentPosition * 1000);
+                tempCurrentTimespan = startTimespan.Add(tempCurrentTimespan);
+                txtCurrentTimeStemp.Text = tempCurrentTimespan.ToString(@"hh\:mm\:ss");
+            }
         }
 
         private void BtnSelect_Click(object sender, EventArgs e)
@@ -84,6 +114,7 @@ namespace VideoRunOff
                     {
                         startTimespan = videoTimeSpan[i];
                         lengthOfVideo = TimeSpan.FromSeconds(videoplayers[i].currentMedia.duration);
+                        currentVideoNum = i;
                     }
 
                     i++;
@@ -108,10 +139,9 @@ namespace VideoRunOff
                 if (TimeSpan.Compare(setTimeto, videoTimeSpan[i]) != 0)
                 {
                     temp = setTimeto.Subtract(videoTimeSpan[i]).TotalSeconds;
-                    videoplayers[i].Ctlcontrols.currentPosition = temp; 
+                    videoplayers[i].Ctlcontrols.currentPosition = temp;
                 }
             }
-
         }
 
         private void ListViewLogFile_DoubleClick(object sender, EventArgs e)
@@ -122,13 +152,14 @@ namespace VideoRunOff
             ClickedTime = ClickedTime.Substring(0, ClickedTime.IndexOf("."));
             txtCurrentTimeStemp.Text = ClickedTime;
             TimeSpan tempTime = TimeSpan.Parse(ClickedTime);
+
             syncVideos(tempTime);
             BtnPlay.PerformClick(); 
         }
 
         private void BtnPlay_Click(object sender, EventArgs e)
         {
-            
+            MyTimer.Start();
             if ((LblVideo1File.Text != "") && ("Playing" != currentStateLabel.Text))
             {
                 for (int i = 0; i < videoplayers.Length; i++)
@@ -142,9 +173,11 @@ namespace VideoRunOff
 
         private void BtnPause_Click_1(object sender, EventArgs e)
         {
+            MyTimer.Stop();
             if ((LblVideo1File.Text != "") && ("Paused" != currentStateLabel.Text))
             {
-                txtCurrentTimeStemp.Text = WMPlayer1.Ctlcontrols.currentPosition.ToString();
+                //txtCurrentTimeStemp.Text = TimeSpan.FromMilliseconds(videoplayers[currentVideoNum].Ctlcontrols.currentPosition * 1000).ToString();
+                //txtCurrentTimeStemp.Text = startTimespan.ToString(@"hh\:mm\:ss");
 
                 for (int i = 0; i < videoplayers.Length; i++)
                 {
@@ -156,6 +189,7 @@ namespace VideoRunOff
         private void BtnSetVideoTime_Click(object sender, EventArgs e)
         {
             TimeSpan tempTime = TimeSpan.Parse(txtCurrentTimeStemp.Text);
+            startTimespan = tempTime;
             syncVideos(tempTime);
         }
 
@@ -178,9 +212,6 @@ namespace VideoRunOff
                 string logFileName;
                 logFileName = openFileDialog.FileName;
                 readLogFile(logFileName);
-
-
-
             }
         }
 
